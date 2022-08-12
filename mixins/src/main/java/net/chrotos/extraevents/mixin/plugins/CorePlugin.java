@@ -1,4 +1,4 @@
-package net.chrotos.extraevents.mixins.plugins;
+package net.chrotos.extraevents.mixin.plugins;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;

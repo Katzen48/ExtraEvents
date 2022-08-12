@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id "io.github.rancraftplayz.remapper" version "1.0.2"
 }
 
@@ -39,9 +39,7 @@ spigot {
 shadowJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     configurations = [project.configurations.getByName("shade")]
-    archiveBaseName.set("${project.name}-${project.version}")
-    archiveClassifier.set('')
-    archiveVersion.set('')
+    classifier = null
     exclude(
             "**/LICENSE.md",
             "**/LICENSE.txt",

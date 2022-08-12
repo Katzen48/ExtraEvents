@@ -1,4 +1,4 @@
-package net.chrotos.extraevents.mixins.core;
+package net.chrotos.extraevents.mixin.core;
 
 import net.chrotos.extraevents.event.world.scoreboard.PlayerAddedToTeamEvent;
 import net.minecraft.world.scores.PlayerTeam;

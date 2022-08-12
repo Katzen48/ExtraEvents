@@ -1,4 +1,4 @@
-package net.chrotos.extraevents.mixins;
+package net.chrotos.extraevents;
 
 import com.google.inject.Inject;
 import org.checkerframework.checker.nullness.qual.NonNull;

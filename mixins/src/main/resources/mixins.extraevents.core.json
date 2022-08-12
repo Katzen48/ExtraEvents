@@ -1,8 +1,8 @@
 {
   "required": true,
   "minVersion": "0.8.5",
-  "package": "net.chrotos.extraevents.mixins.core",
-  "plugin": "net.chrotos.extraevents.mixins.plugins.CorePlugin",
+  "package": "net.chrotos.extraevents.mixin.core",
+  "plugin": "net.chrotos.extraevents.mixin.plugins.CorePlugin",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
   "server": [
