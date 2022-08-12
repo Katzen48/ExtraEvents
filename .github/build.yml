@@ -1,0 +1,43 @@
+name: Java CI
+on: 
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            version: [1.18, 1.18.1, 1.18.2, 1.19, 1.19.1, 1.19.2]
+    
+    steps:
+      - uses: actions/checkout@v2
+      - shell: bash
+        env:
+          GRADLE_PROPERTIES: ${{ secrets.GRADLE_PROPERTIES }}
+          VERSION: ${{ matrix.version }}
+        run: |
+          mkdir -p ~/.gradle/
+          echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
+          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
+          echo "version = ${VERSION}" >> ~/.gradle/gradle.properties
+      
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: artifactoryPublish
+          gradle-version: 7.2
+          build-root-directory: plugin
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: api
+          path: api/build/libs
+      - uses: actions/upload-artifact@v2
+        with:
+          name: mixins
+          path: mixins/build/libs

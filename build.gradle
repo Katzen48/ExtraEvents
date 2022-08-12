@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+    }
+}
+
+subprojects {
+    apply plugin: "idea"
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "com.jfrog.artifactory"
+
+    group 'net.chrotos.extraevents'
+
+    artifactory {
+        contextUrl = "${chrotos_contextUrl}"
+        publish {
+            contextUrl = "${chrotos_contextUrl}"
+            repository {
+                repoKey = 'public'
+                username = "${chrotos_user}"
+                password = "${chrotos_password}"
+            }
+            defaults {
+                publications('mavenJava')
+            }
+        }
+    }
+
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.elmakers.com/repository/'
+        }
+        maven {
+            url 'https://papermc.io/repo/repository/maven-public/'
+        }
+    }
+}

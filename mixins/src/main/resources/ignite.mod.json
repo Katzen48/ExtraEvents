@@ -1,0 +1,11 @@
+{
+  "id": "ExtraEvents",
+  "version": "${version}",
+  "entry": "net.chrotos.extraevents.mixins.ExtraEventsMod",
+  "dependencies": [
+    "ignite"
+  ],
+  "mixins": [
+    "mixins.extraevents.core.json"
+  ]
+}

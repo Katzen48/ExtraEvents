@@ -1,0 +1,81 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id "io.github.rancraftplayz.remapper" version "1.0.2"
+}
+
+configurations {
+    shade
+    implementation.extendsFrom remapLib
+    implementation.extendsFrom shade
+    accessWidenerLib.extendsFrom implementation
+}
+
+repositories {
+    maven {
+        url 'https://repo.spongepowered.org/maven/'
+    }
+}
+
+dependencies {
+    shade project(':api')
+
+    compileOnly "org.spigotmc:spigot:${project.version}-R0.1-SNAPSHOT"
+    compileOnly "org.spigotmc:spigot:${project.version}-R0.1-SNAPSHOT:remapped-mojang"
+
+    implementation 'space.vectrix.ignite:ignite-api:0.8.0'
+    implementation 'org.spongepowered:mixin:0.8.5'
+
+    remapLib "org.spigotmc:spigot:${project.version}-R0.1-SNAPSHOT:remapped-mojang"
+
+    accessWidener fileTree(dir: 'src/main/resources', include: ['*.accesswidener'])
+    implementation "space.vectrix.ignite:ignite-api:0.8.0"
+    implementation "org.spongepowered:mixin:0.8.5"
+}
+
+spigot {
+    version = project.version
+}
+
+shadowJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    configurations = [project.configurations.getByName("shade")]
+    archiveBaseName.set("${project.name}-${project.version}")
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    exclude(
+            "**/LICENSE.md",
+            "**/LICENSE.txt",
+            "**/LICENSE",
+            "**/NOTICE",
+            "**/NOTICE.txt",
+            "pack.mcmeta",
+            "dummyThing",
+            "**/module-info.class",
+            "META-INF/proguard/**",
+            "META-INF/maven/**",
+            "META-INF/versions/**",
+            "META-INF/com.android.tools/**",
+            "fabric.mod.json"
+    )
+    mergeServiceFiles()
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("ignite.mod.json") {
+        expand "version": project.version
+    }
+}
+
+jar.finalizedBy(shadowJar)
+shadowJar.finalizedBy(remapJar)
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) { publication ->
+            artifactId = 'mixins'
+            from shadow.component(publication)
+        }
+    }
+}

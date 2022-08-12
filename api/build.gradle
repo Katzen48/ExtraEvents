@@ -1,0 +1,17 @@
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    compileOnly "org.spigotmc:spigot:${project.version}-R0.1-SNAPSHOT"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) { publication ->
+            artifactId = 'api'
+            from components.java
+        }
+    }
+}
