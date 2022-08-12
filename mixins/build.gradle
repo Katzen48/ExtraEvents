@@ -10,12 +10,6 @@ configurations {
     accessWidenerLib.extendsFrom implementation
 }
 
-repositories {
-    maven {
-        url 'https://repo.spongepowered.org/maven/'
-    }
-}
-
 dependencies {
     shade project(':api')
 
