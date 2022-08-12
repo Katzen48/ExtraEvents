@@ -31,7 +31,6 @@ jobs:
         with:
           arguments: artifactoryPublish
           gradle-version: 7.2
-          build-root-directory: plugin
 
       - uses: actions/upload-artifact@v2
         with:
