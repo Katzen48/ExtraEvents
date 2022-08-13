@@ -30,7 +30,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: artifactoryPublish
+          arguments: artifactoryPublish --stacktrace --debug
           gradle-version: 7.3.3
           cache-disabled: true
 
