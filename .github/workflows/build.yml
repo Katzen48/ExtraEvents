@@ -20,9 +20,8 @@ jobs:
           VERSION: ${{ matrix.version }}
         run: |
           mkdir -p ~/.gradle/
-          echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
-          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
-          echo "version = ${VERSION}" >> ~/.gradle/gradle.properties
+          echo "${GRADLE_PROPERTIES}" > gradle.properties
+          echo "version = ${VERSION}" >> gradle.properties
       
       - uses: actions/setup-java@v1
         with:
